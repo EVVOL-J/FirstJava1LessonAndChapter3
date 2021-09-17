@@ -43,8 +43,11 @@ public class FirstHomework {
 
 
     public static double operationMath(int a, int b, double c, int d){//task 5
-        double v=a*(b+(c/d));
-        return v;
+        if(d==0){
+            System.out.println("cannot be divided by 0");
+            return 0;
+        }
+        return a*(b+(c/d));
     }
 
     public static void positiveOrNegative(int a){ //task5
