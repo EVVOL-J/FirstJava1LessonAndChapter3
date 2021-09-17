@@ -42,12 +42,12 @@ public class FirstHomework {
     }
 
 
-    public static double operationMath(int a, int b, double c, int d){//task 5
+    public static double operationMath(int a, int b, int c, int d){//task 5
         if(d==0){
             System.out.println("cannot be divided by 0");
             return 0;
         }
-        return a*(b+(c/d));
+        return a*(b+(1.0*c/d));
     }
 
     public static void positiveOrNegative(int a){ //task5
