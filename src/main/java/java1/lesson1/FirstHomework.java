@@ -37,12 +37,12 @@ public class FirstHomework {
     }
     
 
-    private static boolean comparison(byte b, int i) {//task 4
+    private static boolean comparison(byte b, int i) {//task 3
        return  20>= (i + b) && (i+b)>=10 ;
     }
 
 
-    public static double operationMath(int a, int b, int c, int d){//task 5
+    public static double operationMath(int a, int b, int c, int d){//task 4
         if(d==0){
             System.out.println("cannot be divided by 0");
             return 0;
