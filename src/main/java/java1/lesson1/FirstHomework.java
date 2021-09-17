@@ -38,7 +38,8 @@ public class FirstHomework {
     
 
     private static boolean comparison(byte b, int i) {//task 3
-       return  20>= (i + b) && (i+b)>=10 ;
+        int sum=b+i;
+       return  20>= sum && sum>=10 ;
     }
 
 
