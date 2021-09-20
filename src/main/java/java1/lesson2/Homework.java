@@ -8,7 +8,7 @@ public class Homework {
         task1();
         task2();
         task3();
-        task4(4);
+        task4(5);
         int[] a={1, 2, 3, 4 , 5, 6, 7};
         task5(a);
         System.out.println(task6CheckBalance(a));
@@ -25,12 +25,7 @@ public class Homework {
         byte[] a={ 1, 1, 0, 0, 1, 0, 1, 1, 0, 0 };
         System.out.println(Arrays.toString(a));
         for(int i=0; i<a.length; i++){
-            if (a[i]==1) a[i]=0;
-            else if (a[i]==0) a[i]=1;
-            else {
-                System.out.println("incorrect array");
-                break;
-            }
+            a[i]= (byte) ((a[i]==1) ? 0 : 1);
         }
         System.out.println(Arrays.toString(a));
     }
@@ -56,13 +51,10 @@ public class Homework {
     private static void task4(int size){
         int[][] a=new int[size][size];
         for (int i=0; i<a.length;i++){
-            for (int j=0; j<a[i].length; j++){
-                if(i==j)a[i][j]=1;
-                System.out.print(a[i][j]+" ");
+            a[i][i]=1;
+            a[i][a.length-1-i]=1;
+                System.out.println(Arrays.toString(a[i]));
             }
-            System.out.println();
-        }
-
     }
 
     private static void task5(int[] a){
