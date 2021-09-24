@@ -34,7 +34,7 @@ public class guessTheWord {
 
                 }
                 System.out.println("Вы не угадали, попробуйте ещё раз");
-                System.out.println(passwordWord.toString());
+                System.out.println(passwordWord);
                 passwordWord.replace(0,14,"###############");
                 ourWord = scanner.next();
             }

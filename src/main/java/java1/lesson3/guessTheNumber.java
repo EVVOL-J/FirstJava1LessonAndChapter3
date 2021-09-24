@@ -1,19 +1,19 @@
 package java1.lesson3;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class guessTheNumber {
+   private static final int NUMBER_OF_CHECK=3;
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
-        int numberOfCheck=3;
+
 
         do{
             System.out.println("Угадайте число от 0 до 10 с трех попыток");
             int numberOfTry=0;
             Integer enterNumber;
            int random=(int)(Math.random()*10);
-            while (numberOfTry!=numberOfCheck){
+            while (numberOfTry!=NUMBER_OF_CHECK){
                 enterNumber=checkCorrectData(scanner);
                 if(enterNumber!=null){
                     if(enterNumber==random){
@@ -21,17 +21,17 @@ public class guessTheNumber {
                         break;
                     }
                     else if(enterNumber<random){
-                        System.out.println("Введенное число меньше загаданного, осталось попыток "+(numberOfCheck-numberOfTry-1));
+                        System.out.println("Введенное число меньше загаданного, осталось попыток "+(NUMBER_OF_CHECK-numberOfTry-1));
                         numberOfTry++;
                     }
                     else {
-                        System.out.println("Введенное число больше загаданного, осталось попыток "+(numberOfCheck-numberOfTry-1));
+                        System.out.println("Введенное число больше загаданного, осталось попыток "+(NUMBER_OF_CHECK-numberOfTry-1));
                         numberOfTry++;
                     }
                 }
 
             }
-            if (numberOfTry==numberOfCheck){
+            if (numberOfTry==NUMBER_OF_CHECK){
                 System.out.println("Вы проиграли");
             }
             numberOfTry=0;
