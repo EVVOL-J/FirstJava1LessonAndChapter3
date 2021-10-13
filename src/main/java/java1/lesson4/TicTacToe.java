@@ -65,29 +65,35 @@ public class TicTacToe {
         int numberOfSymbolY;
         int numberOfSymbolMainDiag;
         int numberOfSymbolDiag;
+        //Цикл для проверки максимальной выигрышной комбинации у пользователя
         for (int win = WIN_NUMBER - 1; win > 0; win--) {
-            for (int xArray = 0; xArray <= SIZE_FILED - WIN_NUMBER; xArray++) {//цикл для масиивов по x
-                for (int yArray = 0; yArray <= SIZE_FILED - WIN_NUMBER; yArray++) {//цикл для масиивов по y
+            //Цикл разбивки поля на простые подмассивы с величиной поля равной выигрышному числу по оси X
+            for (int xArray = 0; xArray <= SIZE_FILED - WIN_NUMBER; xArray++) {
+                //Цикл разбивки поля на простые подмассивы с величиной поля равной выигрышному числу по оси У
+                for (int yArray = 0; yArray <= SIZE_FILED - WIN_NUMBER; yArray++) {
                     numberOfSymbolMainDiag=0;
                     numberOfSymbolDiag=0;
+
                     for (int x = 0; x < WIN_NUMBER; x++)//цикл внутри массива по х
                     {
                         numberOfSymbolX = 0;
                         numberOfSymbolY = 0;
                         for (int y = 0; y < WIN_NUMBER; y++) {//цикл внутри массива по y
-                            //1. проверка строк и столбцов в простом массиве
+                            //1. проверка строк
                             if (array[xArray + x][yArray + y] == charZnNotWhoTry) numberOfSymbolX++;
                             else if (array[xArray + x][yArray + y] == charZnWhoTry) numberOfSymbolX = 0;
+                            //2. Проверка столбцов
                             if (array[yArray + y][xArray + x] == charZnNotWhoTry) numberOfSymbolY++;
                             else if (array[yArray + y][xArray + x] == charZnWhoTry) numberOfSymbolY = 0;
 
                         }
-                        //2. проверка диагоналей
+                        //3. проверка главной диагонали
                         if (array[xArray + x][yArray + x] == charZnNotWhoTry) numberOfSymbolMainDiag++;
                         else if (array[xArray + x][yArray + x] == charZnWhoTry) numberOfSymbolMainDiag = 0;
+                        //4. Проверка второстепенной диагонали
                         if (array[xArray + x][yArray + WIN_NUMBER - 1 - x] == charZnNotWhoTry) numberOfSymbolDiag++;
                         else if (array[xArray + x][yArray + WIN_NUMBER - 1 - x] == charZnWhoTry) numberOfSymbolDiag = 0;
-
+                        //Если не проверяем на выигрышь для строк и столбцов
                         if(!checkWin) {
                             if (numberOfSymbolX == win) {
                                 if (trySetChar(xArray, yArray, x, 1)) return false;
@@ -96,11 +102,13 @@ public class TicTacToe {
                                 if (trySetChar(xArray, yArray, x, 2)) return false;
                             }
                         }
+                        //Если проверяем на выигрышь(строки и столбцы)
                         if (checkWin && (numberOfSymbolX==WIN_NUMBER||numberOfSymbolY==WIN_NUMBER)){
                             return true;
                         }
 
                     }
+                    //Если не проверяем на выигрышь для диагоналей
                     if(!checkWin) {
                         if (numberOfSymbolMainDiag == win) {
                             if (trySetChar(xArray, yArray, 0, 3)) return false;
@@ -109,6 +117,7 @@ public class TicTacToe {
                             if (trySetChar(xArray, yArray, 0, 4)) return false;
                         }
                     }
+                    //Если проверяем на выигрышь(диагонали)
                     if (checkWin&& (numberOfSymbolMainDiag==WIN_NUMBER||numberOfSymbolDiag==WIN_NUMBER)){
                         return true;
                     }
@@ -124,6 +133,7 @@ public class TicTacToe {
     private static boolean trySetChar(int xArray, int yArray, int x, int i) {
         char[] line = new char[WIN_NUMBER];
         int numberWrite;
+        //Цикл копирования столбца, строки или диагонали, предположительно с самым большим числом знаков противника
         for (int y = 0; y < WIN_NUMBER; y++) {
             switch (i) {
                 case 1:
@@ -143,6 +153,7 @@ public class TicTacToe {
             }
 
         }
+        //вызов функции проверки, есть ли место для хода, если нет то возвращает -1, если есть то возвращает число в которое можно записать
         numberWrite = changeLine(line);
         if(numberWrite!=-1){
             switch (i){
