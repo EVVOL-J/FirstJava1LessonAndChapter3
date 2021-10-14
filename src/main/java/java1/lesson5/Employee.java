@@ -1,11 +1,11 @@
 package java1.lesson5;
 
 public class Employee {
-    private String fio;
-    private String position;
-    private String email;
-    private String phone;
-    private int salary;
+    private final String fio;
+    private final String position;
+    private final String email;
+    private final String phone;
+    private final int salary;
     private int age;
 
 
@@ -19,8 +19,7 @@ public class Employee {
         this.age = age;
     }
     public void employeeInfo(){
-        System.out.printf("ФИО:%s \n Должность:%s \n Эмэйл:%s \n Телефон:%s \n Зарплата:%d \n Возраст:%s \n _______________\n",
-                fio, position, email, phone, salary, age);
+        System.out.println(toString());
     }
     public void setAge(int age) {
         this.age = age;
@@ -28,5 +27,17 @@ public class Employee {
 
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "fio='" + fio + '\'' +
+                ", position='" + position + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", salary=" + salary +
+                ", age=" + age +
+                '}';
     }
 }
