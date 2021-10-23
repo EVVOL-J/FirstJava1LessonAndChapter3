@@ -1,49 +1,36 @@
-package java1.lesson4;
+package java1.lesson8;
 
-
-import java.util.Scanner;
 
 public class TicTacToe {
-    private static final char CHAR_X = '\u2716';
-    private static final char CHAR_O = '\u25CB';
-    private static final char CHAR_NULL = '\u2981';
-    private static final int SIZE_FILED = 5;
+    static final char CHAR_X = '\u2716';
+    static final char CHAR_O = '\u25CB';
+    static final char CHAR_NULL = '\u2981';
+    static final int SIZE_FILED = 5;
     private static final int WIN_NUMBER = 4;
+    private final char[][] array = new char[SIZE_FILED][SIZE_FILED];
 
-    private static Scanner scanner = new Scanner(System.in);
-    private static char[][] array = new char[SIZE_FILED][SIZE_FILED];
-
-
-
-    public static void main(String[] args) {
+    TicTacToe() {
         clearArray();
-        printArray();
-        while (true) {
-            humanTry();
-            if (checkWin(CHAR_X)) break;
-            computerTry();
-            printArray();
-            if (checkWin(CHAR_O)) break;
-        }
     }
 
-    private static boolean checkWin(char charZn) {
+
+    public boolean checkWin(char charZn) {
         if (charZn == CHAR_X) {
 
-            if (setSymbol(CHAR_X, CHAR_O, true)) {
+            if (setSymbol(CHAR_X, CHAR_O, true, array)) {
                 System.out.println("Вы победили");
                 return true;
             }
         } else if (charZn == CHAR_O) {
-            if (setSymbol(CHAR_O, CHAR_X, true)) {
+            if (setSymbol(CHAR_O, CHAR_X, true, array)) {
                 System.out.println("Вы проиграли");
                 return true;
             }
         }
-        return chekDraw();
+        return false;
     }
 
-    private static boolean chekDraw() {
+    public boolean chekDraw() {
         for (int x = 0; x < SIZE_FILED; x++) {
             for (int y = 0; y < SIZE_FILED; y++) {
                 if (array[x][y] == CHAR_NULL)
@@ -56,11 +43,11 @@ public class TicTacToe {
     }
 
 
-    private static void computerTry() {
-        setSymbol(CHAR_X, CHAR_O, false);
+    public void computerTry() {
+        setSymbol(CHAR_X, CHAR_O, false, array);
     }
 
-    private static boolean setSymbol(char charZnNotWhoTry, char charZnWhoTry, boolean checkWin) {
+    private boolean setSymbol(char charZnNotWhoTry, char charZnWhoTry, boolean checkWin, char[][] array) {
         int numberOfSymbolX;
         int numberOfSymbolY;
         int numberOfSymbolMainDiag;
@@ -71,8 +58,8 @@ public class TicTacToe {
             for (int xArray = 0; xArray <= SIZE_FILED - WIN_NUMBER; xArray++) {
                 //Цикл разбивки поля на простые подмассивы с величиной поля равной выигрышному числу по оси У
                 for (int yArray = 0; yArray <= SIZE_FILED - WIN_NUMBER; yArray++) {
-                    numberOfSymbolMainDiag=0;
-                    numberOfSymbolDiag=0;
+                    numberOfSymbolMainDiag = 0;
+                    numberOfSymbolDiag = 0;
 
                     for (int x = 0; x < WIN_NUMBER; x++)//цикл внутри массива по х
                     {
@@ -94,7 +81,7 @@ public class TicTacToe {
                         if (array[xArray + x][yArray + WIN_NUMBER - 1 - x] == charZnNotWhoTry) numberOfSymbolDiag++;
                         else if (array[xArray + x][yArray + WIN_NUMBER - 1 - x] == charZnWhoTry) numberOfSymbolDiag = 0;
                         //Если не проверяем на выигрышь для строк и столбцов
-                        if(!checkWin) {
+                        if (!checkWin) {
                             if (numberOfSymbolX == win) {
                                 if (trySetChar(xArray, yArray, x, 1)) return false;
                             }
@@ -103,13 +90,13 @@ public class TicTacToe {
                             }
                         }
                         //Если проверяем на выигрышь(строки и столбцы)
-                        if (checkWin && (numberOfSymbolX==WIN_NUMBER||numberOfSymbolY==WIN_NUMBER)){
+                        if (checkWin && (numberOfSymbolX == WIN_NUMBER || numberOfSymbolY == WIN_NUMBER)) {
                             return true;
                         }
 
                     }
                     //Если не проверяем на выигрышь для диагоналей
-                    if(!checkWin) {
+                    if (!checkWin) {
                         if (numberOfSymbolMainDiag == win) {
                             if (trySetChar(xArray, yArray, 0, 3)) return false;
                         }
@@ -118,10 +105,9 @@ public class TicTacToe {
                         }
                     }
                     //Если проверяем на выигрышь(диагонали)
-                    if (checkWin&& (numberOfSymbolMainDiag==WIN_NUMBER||numberOfSymbolDiag==WIN_NUMBER)){
+                    if (checkWin && (numberOfSymbolMainDiag == WIN_NUMBER || numberOfSymbolDiag == WIN_NUMBER)) {
                         return true;
                     }
-
 
 
                 }
@@ -130,7 +116,7 @@ public class TicTacToe {
         return false;
     }
 
-    private static boolean trySetChar(int xArray, int yArray, int x, int i) {
+    private boolean trySetChar(int xArray, int yArray, int x, int i) {
         char[] line = new char[WIN_NUMBER];
         int numberWrite;
         //Цикл копирования столбца, строки или диагонали, предположительно с самым большим числом знаков противника
@@ -155,32 +141,28 @@ public class TicTacToe {
         }
         //вызов функции проверки, есть ли место для хода, если нет то возвращает -1, если есть то возвращает число в которое можно записать
         numberWrite = changeLine(line);
-        if(numberWrite!=-1){
-            switch (i){
+        if (numberWrite != -1) {
+            switch (i) {
                 case 1:
-                    array[xArray+x][yArray+numberWrite]=CHAR_O;
+                    array[xArray + x][yArray + numberWrite] = CHAR_O;
                     break;
                 case 2:
-                    array[yArray+numberWrite][xArray+x]=CHAR_O;
-                break;
+                    array[yArray + numberWrite][xArray + x] = CHAR_O;
+                    break;
                 case 3:
-                    array[xArray+numberWrite][yArray+numberWrite]=CHAR_O;
+                    array[xArray + numberWrite][yArray + numberWrite] = CHAR_O;
                     break;
                 case 4:
-                    array[xArray+numberWrite][yArray-numberWrite+WIN_NUMBER-1]=CHAR_O;
-                break;
+                    array[xArray + numberWrite][yArray - numberWrite + WIN_NUMBER - 1] = CHAR_O;
+                    break;
                 default:
                     break;
             }
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
-
-
-
-    private static int changeLine(char[] line) {
+    private int changeLine(char[] line) {
         for (int x = 1; x < line.length - 1; x++) {
             if (line[x] == CHAR_NULL) {
                 return x;
@@ -191,31 +173,18 @@ public class TicTacToe {
         return -1;
     }
 
+    public boolean humanTry(int x, int y) {
 
-    private static void humanTry() {
-        String xyHuman;
-        while (true) {
-            while (true) {
-                System.out.println("Ваш ход, укажите координаты в формате:x y");
-                xyHuman = scanner.nextLine();
-
-                if (xyHuman.length() == 3 && xyHuman.charAt(1) == ' ' && (xyHuman.charAt(0) - 48) <= SIZE_FILED && (xyHuman.charAt(0) - 48) > 0 && (xyHuman.charAt(2) - 48) <= SIZE_FILED && (xyHuman.charAt(2) - 48) > 0) {
-                    break;
-                }
-                System.out.println("Введены не корректные данные");
-            }
-            int x = xyHuman.charAt(0) - 48 - 1;
-            int y = xyHuman.charAt(2) - 48 - 1;
-            System.out.println(x + " " + y);
-            if (checkAndPrintCell(x, y)) {
-                break;
-            } else System.out.println("Эта ячейка уже занята");
+        System.out.println(x + " " + y);
+        if (!checkAndPrintCell(x, y)) {
+            System.out.println("Эта ячейка уже занята");
+            return false;
         }
-
-
+        return true;
     }
 
-    private static boolean checkAndPrintCell(int x, int y) {
+
+    private boolean checkAndPrintCell(int x, int y) {
         if (array[x][y] == CHAR_NULL) {
             array[x][y] = CHAR_X;
             printArray();
@@ -224,7 +193,7 @@ public class TicTacToe {
     }
 
 
-    private static void clearArray() {
+    public void clearArray() {
         for (int i = 0; i < SIZE_FILED; i++) {
             for (int j = 0; j < SIZE_FILED; j++) {
                 array[i][j] = CHAR_NULL;
@@ -232,7 +201,7 @@ public class TicTacToe {
         }
     }
 
-    private static void printArray() {
+    public void printArray() {
         for (int i = 0; i <= SIZE_FILED; i++) {
             System.out.print(i + "  ");
         }
@@ -240,11 +209,16 @@ public class TicTacToe {
         for (int i = 0; i < SIZE_FILED; i++) {
             System.out.print((i + 1) + "  ");
             for (int j = 0; j < SIZE_FILED; j++) {
-                System.out.print(array[i][j] + "  ");
+                System.out.print(array[j][i] + "  ");
             }
             System.out.println();
         }
         System.out.println("---------------------------------");
 
     }
+
+    public char[][] getArray() {
+        return array;
+    }
 }
+
