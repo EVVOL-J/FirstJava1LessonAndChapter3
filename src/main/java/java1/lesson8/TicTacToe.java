@@ -5,8 +5,8 @@ public class TicTacToe {
     static final char CHAR_X = '\u2716';
     static final char CHAR_O = '\u25CB';
     static final char CHAR_NULL = '\u2981';
-    static final int SIZE_FILED = 5;
-    private static final int WIN_NUMBER = 4;
+    static final int SIZE_FILED = 9;
+    private static final int WIN_NUMBER = 5;
     private final char[][] array = new char[SIZE_FILED][SIZE_FILED];
 
     TicTacToe() {
