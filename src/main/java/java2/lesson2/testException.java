@@ -1,6 +1,7 @@
 package java2.lesson2;
 
 public class testException {
+    private final static int SIZE_ARRAY=4;
     public static void main(String[] args) {
         String[][] numberArray =
                 {{"4", "5", "6", "7" },
@@ -40,11 +41,13 @@ public class testException {
     }
 
     private static void chekSize(String[][] numberArray) {
-        if (numberArray.length == 4) {
-            for (String[] strings : numberArray) {
-                if (strings.length != 4) throw new MyArraySizeException();
-            }
+        if (numberArray.length != SIZE_ARRAY) {
+            throw new MyArraySizeException();
         }
+        for (String[] strings : numberArray) {
+            if (strings.length != SIZE_ARRAY) throw new MyArraySizeException();
+        }
+
     }
 
 }
