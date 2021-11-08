@@ -3,7 +3,6 @@ package java2.lesson4;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
 
 public class CollectionsPerson {
     private ObservableList<Person> personList;
