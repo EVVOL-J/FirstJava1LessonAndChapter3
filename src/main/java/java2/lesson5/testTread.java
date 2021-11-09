@@ -5,29 +5,26 @@ import java.util.Arrays;
 public class testTread {
     static final int size = 10000000;
     static final int h = size / 2;
+
     public static void main(String[] args) {
-        float[] arr = new float[size];
-        Arrays.fill(arr, 1);
+        float[] arrayWithoutTread=new float[size];
+        Arrays.fill(arrayWithoutTread, 1);
 
-        long a=System.currentTimeMillis();
-        float[] arrayWithoutTread=withoutTread(arr,0);
-        System.out.println("Без потоков время равно "+ (System.currentTimeMillis()-a));
+        float[] arrayWithTread=new float[size];
+        Arrays.fill(arrayWithTread, 1);
 
-        a=System.currentTimeMillis();
-        float[] arrayWithTread=withTread(arr);
-        System.out.println("С потоками время равно "+ (System.currentTimeMillis()-a));
+        measureTime(()->withoutTread(arrayWithoutTread,0), "Without tread");
+        measureTime(()->withTread(arrayWithTread), "With tread");
 
-        for (int i=0; i<arr.length;i++){
-            if(arrayWithoutTread[i]!=arrayWithTread[i]){
-                System.out.println("Массивы не равны");
-                break;
-            }
-        }
+       // System.out.println(Arrays.toString(Arrays.copyOfRange(arrayWithoutTread, 0, 5)));
+        System.out.println("Массивы равны?"+ Arrays.equals(arrayWithoutTread,arrayWithTread));
 
 
     }
 
-    private static float[] withTread(float[] arr) {
+
+
+    private static void withTread(float[] arr) {
         final float[] arr1=new float[h];
         final float[] arr2=new float[h];
 
@@ -43,10 +40,9 @@ public class testTread {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return arr;
     }
 
-    private static float[] withoutTread(float[] arr, int smech) {
+    private static float[] withoutTread(float[] arr , int smech) {
 
 
         for (int i=0; i<arr.length; i++){
@@ -54,5 +50,11 @@ public class testTread {
         }
 
         return arr;
+    }
+
+    private static void measureTime(Runnable runnable, String message){
+        long a=System.currentTimeMillis();
+        runnable.run();
+        System.out.println(message +" " +(System.currentTimeMillis()-a));
     }
 }
