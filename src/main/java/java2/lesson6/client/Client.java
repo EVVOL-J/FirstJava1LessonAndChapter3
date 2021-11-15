@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class Client extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -22,11 +23,11 @@ public class Client extends Application {
         if (!network.connect()){
             showNetworkError("Ошибка подключения к серверу", "Ошибка сети");
         }
-
         Controller controller=loader.getController();
         controller.setNetwork(network);
         network.read(controller);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {
