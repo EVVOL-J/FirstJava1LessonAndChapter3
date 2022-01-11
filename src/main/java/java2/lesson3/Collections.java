@@ -7,7 +7,6 @@ public class Collections {
     private static final String[] stringArray = {"NOP", "NOP1", "NOP2", "NOP3", "NOP", "NOP1", "NOP2", "NOP3", "NOP4", "NOP5" };
 
     public static void main(String[] args) {
-
         convertArray();
         Phonebook phonebook = new Phonebook();
         phonebook.add("Voloshin", 123);
